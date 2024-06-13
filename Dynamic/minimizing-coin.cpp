@@ -11,20 +11,24 @@ using namespace std;
 int main()
 {
     fast;
-    int n, m;
-    cin >> n >> m;
-    vector<int> coin(n);
-    for (int i = 0; i < n; i++)
-        cin >> coin[i];
-    sort(coin.begin(), coin.end());
-
-    vector<int> dp(m + 1, 0);
-
-    dp[0] = 1;
-    for (int i = 1; i <= m; i++)
+    int n, x;
+    int inf = 10000000;
+    cin >> n >> x;
+    vector<int> coins(n), v(x + 1);
+    for (auto &c : coins)
+        cin >> c;
+    v[0] = 0;
+    for (int i = 1; i <= x; i++)
     {
+        v[i] = inf;
+        for (auto c : coins)
+        {
+            if (i - c >= 0)
+                v[i] = min(v[i], v[i - c] + 1);
+        }
     }
-    cout << dp[m] << endl;
+
+    cout << v[x];
 
     return 0;
 }
