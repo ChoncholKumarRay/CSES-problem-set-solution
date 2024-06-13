@@ -1,3 +1,4 @@
+// Modified Code
 #include <bits/stdc++.h>
 #define ll long long
 #define pb push_back
@@ -7,6 +8,9 @@
     cin.tie(0);                       \
     cout.tie(0);
 using namespace std;
+
+int cnt = 0;
+int taka[100000];
 
 int main()
 {
@@ -23,12 +27,26 @@ int main()
         v[i] = inf;
         for (auto c : coins)
         {
-            if (i - c >= 0)
-                v[i] = min(v[i], v[i - c] + 1);
+            if (i - c >= 0 && v[i - c] + 1 < v[i])
+            {
+                v[i] = v[i - c] + 1;
+                taka[i] = c;
+                cnt++;
+            }
         }
     }
 
     cout << v[x];
+    cout << endl
+         << cnt << endl;
+
+    int j = x;
+    while (j > 0)
+    {
+        cout << taka[j] << " ";
+        j -= taka[j];
+    }
+    cout << endl;
 
     return 0;
 }
